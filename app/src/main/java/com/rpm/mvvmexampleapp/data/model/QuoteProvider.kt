@@ -1,11 +1,11 @@
 package com.rpm.mvvmexampleapp.data.model
 
-class QuoteProvider {
+import javax.inject.Inject
+import javax.inject.Singleton
 
-    companion object {
+@Singleton
+class QuoteProvider @Inject constructor() {
 
-        var quoteList: List<QuoteModel> = emptyList()
-
-    }
+    var quoteList: List<QuoteModel> = emptyList()
 
 }

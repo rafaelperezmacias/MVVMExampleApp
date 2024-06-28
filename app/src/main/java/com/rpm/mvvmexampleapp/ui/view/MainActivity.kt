@@ -1,11 +1,12 @@
-package com.rpm.mvvmexampleapp.view
+package com.rpm.mvvmexampleapp.ui.view
 
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import com.rpm.mvvmexampleapp.databinding.ActivityMainBinding
-import com.rpm.mvvmexampleapp.viewmodel.QuoteViewModel
+import com.rpm.mvvmexampleapp.ui.viewmodel.QuoteViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,11 +21,20 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        quoteViewModel.onCreate()
+
         quoteViewModel.quoteModel.observe(
             this,
             Observer { quote ->
                 binding.txtQuote.text = quote.quote
                 binding.txtAuthor.text = quote.author
+            }
+        )
+
+        quoteViewModel.isLoading.observe(
+            this,
+            Observer {
+                binding.progressCircular.isVisible = it
             }
         )
 

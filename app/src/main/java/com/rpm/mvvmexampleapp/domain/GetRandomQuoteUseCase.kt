@@ -1,15 +1,16 @@
 package com.rpm.mvvmexampleapp.domain
 
+import com.rpm.mvvmexampleapp.data.QuoteRepository
 import com.rpm.mvvmexampleapp.data.model.QuoteModel
-import com.rpm.mvvmexampleapp.data.model.QuoteProvider
+import com.rpm.mvvmexampleapp.domain.model.Quote
 import javax.inject.Inject
 
 class GetRandomQuoteUseCase @Inject constructor(
-    private val quoteProvider: QuoteProvider
+    private val repository: QuoteRepository
 ) {
 
-    operator fun invoke(): QuoteModel? {
-        val quotesList = quoteProvider.quoteList
+    suspend operator fun invoke(): Quote? {
+        val quotesList = repository.getAllQuoteFromDatabase()
         if ( quotesList.isNotEmpty() ) {
             return quotesList[quotesList.indices.random()]
         }
